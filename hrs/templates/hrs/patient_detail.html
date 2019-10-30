@@ -1,0 +1,19 @@
+{% extends "hrs/base.html" %}
+
+{% block content %}
+
+    <article class="media content-section">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'patient-medRecord' object.id %}">{{object.lastName}}, {{object.firstName}}</a>
+                <small class="text-muted">{{ object.get_gender_display }}</small>
+                
+            </div>
+            <p class="article-content">DOB: {{ object.birthday }}</p>
+            <p class="article-content">Race: {{ object.get_race_display }}</p>
+            <p class="article-content">Doctor: {{ object.doc }}</p>
+        </div>
+    </article>
+
+
+{% endblock content %}
