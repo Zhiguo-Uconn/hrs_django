@@ -39,9 +39,9 @@ class Patient(models.Model):
 class MedRecord(models.Model):
     #marital_choices = list(driven_factors.get("MaritalStatus").items())
     marital_choices = driven_factors.get('MaritalStatus')
-    print(marital_choices)
+    
     patient = models.ForeignKey(Patient,on_delete = models.CASCADE, verbose_name = "Patient" )
     a1c = models.DecimalField("A1c", max_digits=3, decimal_places=1)
     fastGlucose = models.DecimalField("Fast Glucose", max_digits=3, decimal_places=1)
     recordTime = models.DateTimeField(default = timezone.now)
-    MaritalStatus = models.CharField('Marital Status', max_length=50, choices=marital_choices)
+    MaritalStatus = models.CharField('Marital Status', max_length=5, choices=marital_choices)

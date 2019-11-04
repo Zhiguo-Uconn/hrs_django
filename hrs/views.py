@@ -17,9 +17,9 @@ def home(request):
 def about(request):
     patient = Patient.objects.get(pk=2)
     test_hrs = calculation.get_hle(1, patient)
-    print(test_hrs)
+  
     mr = MedRecord.objects.get(pk=1)
-    print(mr.get_MaritalStatus_display.keywords)
+
     return render(request, 'hrs/about.html', context={'HLE': test_hrs, 'mr': mr})
 
 
@@ -31,10 +31,12 @@ class PatientListView(ListView):
 
 
 def patientDetail(request, pid):
-    print(pid)
     patient = Patient.objects.get(pk=pid)
+    medRecord = MedRecord.objects.filter(patient = patient).last()
+    
     context = {
-        'object': patient
+        'object': patient,
+        'medRecord': medRecord,
     }
     return render(request, 'hrs/patient_detail.html', context)
 
@@ -65,11 +67,10 @@ def patientSearch(request):
 def mrCreateView(request, pid):
     if request.method == 'POST':
         postForm = MedRecordForm(request.POST)
-        print(request.POST)
-        print(postForm.is_valid())
+        print(postForm)
         if postForm.is_valid():
             postForm.save()
-            return redirect('patient-detail-test', pid=pid)
+            return redirect('patient-detail', pid=pid)
 
     patient = Patient.objects.get(pk=pid)
     medRecord = MedRecord(patient = patient)
